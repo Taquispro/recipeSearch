@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe finder</title>
+  </head>
+  <body>
+    <form action="/" method="POST">
+      <input type="text" name="recipe" placeholder="Your recipe?" />
+      <button type="submit">🔍</button>
+    </form>
+    <h1>All recipies</h1>
+    <% for (var i = 0; i<Hits.length;i++){ %>
+        <div style="display: flex;"><img src = "<%=Hits[i].recipe.image%>" />
+        <p>Recipe : <%=Hits[i].recipe.label%></p>
+        <br>
+     
+        <% for (var j =0;j<Hits[i].recipe.dietLabels.length;j++) {%>
+            <ul>
+                
+                <li><%=Hits[i].recipe.dietLabels[j]%></li></ul>
+            <% } %>
+            <% for (var j =0;j<Hits[i].recipe.healthLabels.length;j++) {%>
+                <ul>
+                    
+                    <li><%=Hits[i].recipe.healthLabels[j]%></li></ul>
+                <% } %>
+            <p>Calories : <%=Hits[i].recipe.calories%></p>
+           
+            <% for (var j =0;j<Hits[i].recipe.cuisineType.length;j++) {%>
+                <ul><p>Cuisine type : </p>
+                    
+                    <li><%=Hits[i].recipe.cuisineType[j]%></li></ul>
+                <% } %>
+                <% for (var j =0;j<Hits[i].recipe.mealType.length;j++) {%>
+                    <ul><p>Meal type type : </p>
+                        
+                        <li><%=Hits[i].recipe.mealType[j]%></li></ul>
+                    <% } %>
+                    <% for (var j =0;j<Hits[i].recipe.dishType.length;j++) {%>
+                        <ul><p>Dish type : </p>
+                            
+                            <li><%=Hits[i].recipe.dishType[j]%></li></ul>
+                        <% } %>
+                    
+        </div>
+    
+    <%}%>
+  </body>
+</html>

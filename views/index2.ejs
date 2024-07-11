@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Finder</title>
+    <style>
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #333;
+      }
+      .container {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        width: 90%;
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 30px;
+      }
+      h1 {
+        text-align: center;
+        color: #4b0082;
+        margin: 20px 0;
+        font-size: 2.5em;
+      }
+      form {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      input[type="text"] {
+        padding: 15px;
+        width: 60%;
+        border-radius: 25px;
+        border: 1px solid #ccc;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: 1.2em;
+        margin-right: 10px;
+      }
+      button {
+        padding: 12px 25px;
+        border: none;
+        background-color: #4b0082;
+        color: white;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+      button:hover {
+        background-color: #6a0dad;
+        transform: translateY(-3px);
+      }
+      .recipe {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: white;
+        margin-bottom: 20px;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+      }
+      .recipe:hover {
+        transform: translateY(-5px);
+      }
+      .recipe img {
+        border-radius: 10px;
+        max-width: 100%;
+        margin-bottom: 15px;
+      }
+      .recipe-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .recipe-content p,
+      .recipe-content ul {
+        margin: 5px 0;
+        color: #555;
+        font-size: 1em;
+      }
+      .recipe-content ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      .recipe-content ul li {
+        margin: 2px 0;
+        padding-left: 20px;
+        text-indent: -20px;
+        position: relative;
+      }
+      .recipe-content ul li::before {
+        content: "•";
+        color: #ff6f61;
+        position: absolute;
+        left: 0;
+      }
+      .hidden {
+        display: none;
+      }
+      #readMoreContainer {
+        text-align: center;
+        margin-top: 20px;
+      }
+      #readMoreButton {
+        padding: 10px 20px;
+        border: none;
+        background-color: #4b0082;
+        color: white;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+      #readMoreButton:hover {
+        background-color: #6a0dad;
+        transform: translateY(-3px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Recipe Finder</h1>
+      <form action="/" method="POST">
+        <input type="text" name="recipe" placeholder="Your recipe?" />
+        <button type="submit">🔍</button>
+      </form>
+      <h1>All Recipes</h1>
+      <% for (let i = 0; i < Hits.length; i++) { %>
+      <div class="recipe <%= i >= 4 ? 'hidden' : '' %>">
+        <img src="<%= Hits[i].recipe.image %>" alt="Recipe Image" />
+        <div class="recipe-content">
+          <p><strong>Recipe:</strong> <%= Hits[i].recipe.label %></p>
+          <p>
+            <strong>Calories:</strong> <%= Hits[i].recipe.calories.toFixed(2) %>
+          </p>
+          <p><strong>Ingredients:</strong></p>
+          <ul>
+            <% for (let j = 0; j < Hits[i].recipe.ingredientLines.length; j++) {
+            %>
+            <li><%= Hits[i].recipe.ingredientLines[j] %></li>
+            <% } %>
+          </ul>
+          <p><strong>Diet Labels:</strong></p>
+          <ul>
+            <% for (let j = 0; j < Hits[i].recipe.dietLabels.length; j++) { %>
+            <li><%= Hits[i].recipe.dietLabels[j] %></li>
+            <% } %>
+          </ul>
+          <p><strong>Health Labels:</strong></p>
+          <ul>
+            <% for (let j = 0; j < Hits[i].recipe.healthLabels.length; j++) { %>
+            <li><%= Hits[i].recipe.healthLabels[j] %></li>
+            <% } %>
+          </ul>
+          <p><strong>Cuisine Type:</strong></p>
+          <ul>
+            <% for (let j = 0; j < Hits[i].recipe.cuisineType.length; j++) { %>
+            <li><%= Hits[i].recipe.cuisineType[j] %></li>
+            <% } %>
+          </ul>
+          <p><strong>Meal Type:</strong></p>
+          <ul>
+            <% for (let j = 0; j < Hits[i].recipe.mealType.length; j++) { %>
+            <li><%= Hits[i].recipe.mealType[j] %></li>
+            <% } %>
+          </ul>
+          <p><strong>Dish Type:</strong></p>
+          <ul>
+            <% for (let j = 0; j < Hits[i].recipe.dishType.length; j++) { %>
+            <li><%= Hits[i].recipe.dishType[j] %></li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+      <% } %> <% if (Hits.length > 4) { %>
+      <div id="readMoreContainer">
+        <button id="readMoreButton">Read More</button>
+      </div>
+      <% } %>
+    </div>
+    <script>
+      document
+        .getElementById("readMoreButton")
+        .addEventListener("click", function () {
+          const hiddenRecipes = document.querySelectorAll(".hidden");
+          hiddenRecipes.forEach((recipe) => recipe.classList.remove("hidden"));
+          document.getElementById("readMoreContainer").style.display = "none";
+        });
+    </script>
+  </body>
+</html>
